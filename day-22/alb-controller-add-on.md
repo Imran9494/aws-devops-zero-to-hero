@@ -24,9 +24,25 @@ eksctl create iamserviceaccount \
   --role-name AmazonEKSLoadBalancerControllerRole \
   --attach-policy-arn=arn:aws:iam::<your-aws-account-id>:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
+
+FOR WINDOWS(powershell)
+
+eksctl create iamserviceaccount `
+  --cluster <your-cluster-name> `
+  --namespace kube-system `
+  --name aws-load-balancer-controller `
+  --role-name AmazonEKSLoadBalancerControllerRole `
+  --attach-policy-arn arn:aws:iam::<your-aws-account-id:policy/AWSLoadBalancerControllerIAMPolicy `
+  --approve
+
 ```
 
 ## Deploy ALB controller
+Link to download helm
+
+```
+https://github.com/helm/helm/releases
+```
 
 Add helm repo
 
@@ -50,6 +66,17 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set region=<region> \
   --set vpcId=<your-vpc-id>
+
+FOR WINDOWS(powershell)
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller `
+  -n kube-system `
+  --set clusterName=<your-cluster-name> `
+  --set serviceAccount.create=false `
+  --set serviceAccount.name=aws-load-balancer-controller `
+  --set region=us-east-1 `
+  --set vpcId=<your-vpc-id>
+
 ```
 
 Verify that the deployments are running.
