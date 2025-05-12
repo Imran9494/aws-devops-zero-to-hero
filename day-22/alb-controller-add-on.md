@@ -1,6 +1,6 @@
 # How to setup alb add on
 
-Download IAM policy - Git bash
+Download IAM policy(terminal - git bash)
 
 ```
 curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.11.0/docs/install/iam_policy.json
